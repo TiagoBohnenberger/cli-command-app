@@ -7,9 +7,9 @@ import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Singleton;
 
-import io.github.tiagobohnenberger.cli.core.ConsoleReader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.github.tiagobohnenberger.cli.core.ConsoleReader;
 
 @ApplicationScoped
 class AppConfig {

@@ -62,23 +62,16 @@ public class CommandOptionsRegistry {
                 try {
                     method.invoke(bean);
                 } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                    var exception = ObjectUtils.defaultIfNull(e.getCause(), e);
+                    final var exception = ObjectUtils.defaultIfNull(e.getCause(), e);
                     log.error("""
                             Erro ao executar comando "{}"
                             """, commandOptionValue, exception);
                 } catch (Exception e) {
                     log.error("""
                             Erro genérico ao executar o comando "{}"
-                            """,commandOptionValue, e);
+                            """, commandOptionValue, e);
                 }
             }
-        }
-
-        public String getCommandName() {
-            if (method != null) {
-                return method.getName();
-            }
-            return bean.getClass().getSimpleName();
         }
     }
 }

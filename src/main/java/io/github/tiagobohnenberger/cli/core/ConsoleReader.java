@@ -3,8 +3,8 @@ package io.github.tiagobohnenberger.cli.core;
 import java.io.Closeable;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import io.github.tiagobohnenberger.cli.tryy.Try;
 import io.github.tiagobohnenberger.cli.util.Conditional;
+import io.github.tiagobohnenberger.fntry.Try;
 
 import static io.github.tiagobohnenberger.cli.util.Functions.print;
 
@@ -36,7 +36,14 @@ public class ConsoleReader implements Runnable, Closeable, Conditional {
     public void run() {
         while (holder.isNotExit()) {
             print("Opção: ");
-            int userInput = Integer.parseInt(scannerWrapper.nextLine());
+            int userInput = Try.of(
+                    () -> Integer.parseInt(scannerWrapper.nextLine())
+            ).orElse(-1);
+
+            if (userInput == -1) {
+                continue;
+            }
+
             holder.put(userInput);
 
             synchronized (this) {
@@ -44,7 +51,7 @@ public class ConsoleReader implements Runnable, Closeable, Conditional {
 
                 if (this.isExit()) break;
 
-                Try.of(() -> this.wait());
+                Try.just(this::wait);
             }
 
         }

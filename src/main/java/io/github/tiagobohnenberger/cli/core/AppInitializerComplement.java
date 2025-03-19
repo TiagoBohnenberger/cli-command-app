@@ -23,10 +23,9 @@ import jakarta.enterprise.inject.spi.BeforeShutdown;
 import jakarta.enterprise.inject.spi.Extension;
 import jakarta.enterprise.inject.spi.ProcessBean;
 
-import io.github.tiagobohnenberger.cli.tryy.SimpleFunction;
-import io.github.tiagobohnenberger.cli.tryy.Try;
 import io.github.tiagobohnenberger.cli.util.ClassUtils;
 import io.github.tiagobohnenberger.cli.util.Functions;
+import io.github.tiagobohnenberger.fntry.Try;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -81,10 +80,13 @@ class AppInitializerComplement implements Extension {
 
     private void beforeShutdown(@Observes BeforeShutdown event) {
         Try.with("* ATÉ MAIS //")
-                .apply(Functions::printAnsiArt)
-                .orElse((SimpleFunction) Functions::println);
+                .consume(__ -> System.out.println())
+                .consume(Functions::printAnsiArt)
+                .orElse(Functions::println);
+
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void initEagerBeans(BeanManager beanManager) {
         for (Bean<?> bean : eagerBeansList) {
             // note: toString() is important to instantiate the bean

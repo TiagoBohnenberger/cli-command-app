@@ -10,8 +10,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Flow;
 import java.util.concurrent.SubmissionPublisher;
 
-import io.github.tiagobohnenberger.cli.util.BeanUtils;
 import com.google.gson.Gson;
+import io.github.tiagobohnenberger.cli.util.BeanUtils;
 
 public class JsonBody {
 

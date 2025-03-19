@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-import io.github.tiagobohnenberger.cli.tryy.Try;
+import io.github.tiagobohnenberger.fntry.Try;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 
@@ -38,7 +38,8 @@ public class CsvReader {
 
             return csvToBean.parse();
         } finally {
-            Try.of(fileReader::close).orElse(ex -> log.error("Error on auto closing", ex));
+            Try.just(fileReader::close)
+                    .otherwise(ex -> log.error("Error on auto closing", ex));
         }
     }
 }
