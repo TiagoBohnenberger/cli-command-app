@@ -33,3 +33,7 @@ Certifique-se de ter o **Java 21** ou superior e o **Maven** instalados.
    ```bash
    mvn package
    java -Djakarta.enterprise.inject.scan.implicit=true -jar target/cli-command-app-1.0-SNAPSHOT-shaded.jar
+   
+### Com docker
+   ```bash
+   docker run -it tiagobohnenberger/cli-command-app:0.0.2
